@@ -2,7 +2,7 @@ package main
 
 import (
 	"log"
-	"movefiles/helper"
+	"movefiles/config"
 	"net/http"
 	"time"
 
@@ -18,7 +18,7 @@ func main() {
 
 	// Menjalankan Cronjob Golang
 	c := gocron.NewScheduler(time.Local)
-	c.Every(1).Minute().Do(helper.CopyFileTask)
+	c.Every(10).Second().Do(config.ReadEnv)
 	c.StartBlocking()
 
 	e.GET("/", func(c echo.Context) error {
